@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "vector": "cpp"
+        "vector": "cpp",
+        "system_error": "cpp",
+        "iostream": "cpp"
     }
 }
