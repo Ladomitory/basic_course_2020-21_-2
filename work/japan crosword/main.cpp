@@ -27,7 +27,7 @@ void encoding(int n, int m, vector <vector <int>> map)
             counter = 0;
         }
     }
-
+    counter = 0;
     for (int j = 0; j < m; ++j)
     {
         for (int i = 0; i < n; ++i)
@@ -36,7 +36,7 @@ void encoding(int n, int m, vector <vector <int>> map)
                 counter++;
             else if (counter != 0)
             {
-                ans[n + i].push_back(counter);
+                ans[n + j].push_back(counter);
                 counter = 0;
             }
             else
