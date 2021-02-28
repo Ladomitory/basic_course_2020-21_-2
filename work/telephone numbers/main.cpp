@@ -5,7 +5,7 @@
 #include <cmath>
 #include <algorithm>
 #include <vector>
-#define PRIORITY 0
+#define PRIORITY 1
 
 using namespace std;
 
@@ -55,57 +55,32 @@ int main()
 
     while (i >= 0 && j >= 0)
     {
-        if (PRIORITY)
+        if (arr[i][j] - arr[max(0, i - 1)][j] == 1)
         {
-            if (arr[i][j] - arr[max(0, i - 1)][j] == 1)
-            {
-                cout << "INSERT '" << num[i - 1] << "' before " << j << endl;
-                cout << "\tBEFORE: " << name << endl;
+            cout << "INSERT '" << num[i - 1] << "' before " << j << endl;
+            cout << "\t" << name << endl;
 
-                name.insert(j, 1, num[i - 1]);
-                --i;
-                
-                cout << "\tAFTER: " << name << endl;
-            } else if (arr[i][j] - arr[i][max(j - 1, 0)] == 1)
-            {
-                cout << "DELETE '" << name[j - 1] << "' at " << j - 1 << endl;
-                cout << "\tBEFORE: " << name << endl;
-
-                name.erase(j - 1, 1);
-                --j; 
-
-                cout << "\tAFTER: " << name << endl;
-            } else
-            {
-                --i;
-                --j;
-            }
-        } else 
+            name.insert(j, 1, num[i - 1]);
+            --i;
+              
+            cout << "\t" << name << endl;
+        } 
+        else if (arr[i][j] - arr[i][max(j - 1, 0)] == 1)
         {
-            if (arr[i][j] - arr[i][max(j - 1, 0)] == 1)
-            {
-                cout << "DELETE '" << name[j - 1] << "' at " << j - 1 << endl;
-                cout << "\tBEFORE: " << name << endl;
+            cout << "DELETE '" << name[j - 1] << "' at " << j - 1 << endl;
+            cout << "\t" << name << endl;
 
-                name.erase(j - 1, 1);
-                --j; 
+            name.erase(j - 1, 1);
+            --j; 
 
-                cout << "\tAFTER: " << name << endl;
-            } else if (arr[i][j] - arr[max(0, i - 1)][j] == 1)
-            {
-                cout << "INSERT '" << num[i - 1] << "' before " << j << endl;
-                cout << "\tBEFORE: " << name << endl;
-
-                name.insert(j, 1, num[i - 1]);
-                --i;
-                
-                cout << "\tAFTER: " << name << endl;
-            } else
-            {
-                i--;
-                j--;
-            }
+            cout << "\t" << name << endl;
         }
+        else
+        {
+            --i;
+            --j;
+        }
+
     }
 
     cout << name << endl;
