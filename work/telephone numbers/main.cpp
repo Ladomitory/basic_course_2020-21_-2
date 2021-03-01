@@ -2,10 +2,7 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include <cmath>
-#include <algorithm>
 #include <vector>
-#define PRIORITY 1
 
 using namespace std;
 
@@ -49,31 +46,33 @@ int main()
 	            arr[i][j] = min(arr[i - 1][j] + 1, arr[i][j - 1] + 1);
         }
 
+    cout << "array with table" << endl;
     print_vec(n1, n2, arr);
     
     int i = n1 - 1, j = n2 - 1;
+    
 
     while (i >= 0 && j >= 0)
     {
         if (arr[i][j] - arr[max(0, i - 1)][j] == 1)
         {
-            cout << "INSERT '" << num[i - 1] << "' before " << j << endl;
-            cout << "\t" << name << endl;
+            cout << "insert " << num[i - 1] << " before " << j << endl;
+            cout << "\t" << name;
 
             name.insert(j, 1, num[i - 1]);
             --i;
               
-            cout << "\t" << name << endl;
+            cout << " -> " << name << endl;
         } 
         else if (arr[i][j] - arr[i][max(j - 1, 0)] == 1)
         {
-            cout << "DELETE '" << name[j - 1] << "' at " << j - 1 << endl;
-            cout << "\t" << name << endl;
+            cout << "delete " << name[j - 1] << " at " << j - 1 << endl;
+            cout << "\t" << name;
 
             name.erase(j - 1, 1);
             --j; 
 
-            cout << "\t" << name << endl;
+            cout << " -> " << name << endl;
         }
         else
         {
@@ -83,7 +82,7 @@ int main()
 
     }
 
-    cout << name << endl;
-	cout << arr[n1 - 1][n2 - 1] << endl;
+    cout << "resule " << name << endl;
+	cout << "ans " << arr[n1 - 1][n2 - 1] << endl;
     return 0;
 }
