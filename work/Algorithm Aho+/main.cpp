@@ -39,14 +39,14 @@ int main(void)
         }
     }
     cout << start[n - 1][m - 1] << endl;
-    /*for (i = 0; i < n; i++)
+    for (i = 0; i < n; i++)
     {
         for (j = 0; j < m; j++)
         {
             cout << start[i][j] << ' ';
         }
         cout << endl;
-    }*/
+    }
     j = m - 1;
     i = n - 1;
     while (i > 0 && j > 0) 
