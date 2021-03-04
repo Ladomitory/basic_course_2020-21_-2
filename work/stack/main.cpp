@@ -41,8 +41,27 @@ int pop(Stack *S)
 {
     if (S->top)
     {
-        
+        int a = S->top->value;
+        struct list* l = S->top;
+        S->top = S->top->next;
+        free(l);
+        return a;
     }
+    else
+        return NAN;
+}
+
+void push(Stack *S, int x)
+{
+    struct list *l = (struct list*)malloc(sizeof(struct list));
+    l->value = x;
+    l->next = S->top;
+    S->top = l;
+}
+
+bool empty(Stack *S)
+{
+    return (S->top == NULL);
 }
 
 int main()
