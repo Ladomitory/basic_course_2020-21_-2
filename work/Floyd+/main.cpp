@@ -24,6 +24,7 @@ void print_vec(vector <vector <int> > vec)
 int main()
 {
     int n;
+    cout << "Size\n";
     cin >> n;
     vector <vector <int> > vec(n, vector <int> (n));
     string temp;
