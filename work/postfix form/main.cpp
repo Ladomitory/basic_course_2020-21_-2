@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
-#include <ctype.h>
+#include <ctype.h> //isdigit
+#include <climits>
 
 using namespace std;
 
@@ -36,7 +37,7 @@ int top(Stack *S)
     if (S->top)
         return S->top->value;
     else
-        return NAN; 
+        return INT_MIN; 
 
 }
 
@@ -51,7 +52,7 @@ int pop(Stack *S)
         return a;
     }
     else
-        return NAN;
+        return INT_MIN;
 }
 
 void push(Stack *S, int x)
@@ -60,6 +61,7 @@ void push(Stack *S, int x)
     l->value = x;
     l->next = S->top;
     S->top = l;
+
 }
 
 bool empty(Stack *S)
@@ -67,10 +69,10 @@ bool empty(Stack *S)
     return (S->top == NULL);
 }
 
-string infix_postfix(string s)
+string infix_to_postfix(string s)
 {
     string ans;
-    Stack *st;
+    Stack *st = create();
     string a;
     for (int i = 0; i < s.length(); ++i)
     {
@@ -80,27 +82,50 @@ string infix_postfix(string s)
             push(st, s[i]);
         else if (s[i] == ')')
         {
-            while (top(st) != '(')
+            while (empty(st) && top(st) != '(')
                 ans.push_back(pop(st));
             a = pop(st);
         }
         else
-            
-
-            
+        {
+            if (s[i] == '*' || s[i] == '/')
+            {
+                while (empty(st) && top(st) == '*' && top(st) == '/')
+                {
+                    ans.push_back(pop(st));
+                }
+                push(st, s[i]);                
+            }
+            else if (s[i] == '+' || s[i] == '-')
+            {
+                while (empty(st) && top(st) != '=' && top(st) != '(')
+                {
+                    ans.push_back(pop(st));
+                }
+                push(st, s[i]);
+            }
+            else
+            {
+                while (empty(st) && top(st) != '(')
+                {
+                    ans.push_back(pop(st));
+                }
+                push(st, s[i]);
+            }
+        }       
     }
+    return ans;
 }
 
-int postfix(string s)
-{
-
-}
+int postfix(string s);
 
 int main()
 {
-    string s;
-    cin >> s;
-
+    string is;
+    cin >> is;
+    string ps;
+    ps = infix_to_postfix(is);
+    cout << ps;
 
     return 0;
 }
