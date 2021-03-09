@@ -75,49 +75,66 @@ string infix_to_postfix(string s)
     Stack *st = create();
     string a;
     for (int i = 0; i < s.length(); ++i)
-    {
         if (isdigit(s[i]))
             ans.push_back(s[i]);
         else if (s[i] == '(')
             push(st, s[i]);
-        else if (s[i] == ')')
+        else if (s[i] == ')')   
         {
-            while (empty(st) && top(st) != '(')
+            while (!empty(st) && top(st) != '(')
                 ans.push_back(pop(st));
             a = pop(st);
         }
         else
         {
             if (s[i] == '*' || s[i] == '/')
-            {
-                while (empty(st) && top(st) == '*' && top(st) == '/')
-                {
-                    ans.push_back(pop(st));
-                }
-                push(st, s[i]);                
-            }
+                while (!empty(st) && top(st) == '*' && top(st) == '/')
+                    ans.push_back(pop(st));  
             else if (s[i] == '+' || s[i] == '-')
-            {
-                while (empty(st) && top(st) != '=' && top(st) != '(')
-                {
+                while (!empty(st) && top(st) != '=' && top(st) != '(')
                     ans.push_back(pop(st));
-                }
-                push(st, s[i]);
-            }
             else
-            {
-                while (empty(st) && top(st) != '(')
-                {
+                while (!empty(st) && top(st) != '(')
                     ans.push_back(pop(st));
-                }
-                push(st, s[i]);
-            }
-        }       
-    }
+            push(st, s[i]);
+        }
+
+
+    while (!empty(st))
+        ans.push_back(pop(st));
     return ans;
 }
 
-int postfix(string s);
+int operate(int a, int b, char o)
+{
+    int ans;
+    if (o == '+')
+        ans = a + b;
+    else if (o = '-')
+        ans = a - b;
+    else if (o = '*')
+        ans = a * b;
+    else if (o = '/')
+        ans = a / b;
+
+    return ans;
+}
+
+int postfix(string s)
+{
+    Stack *st = create();
+    int a, b;
+    for (int i = 0; i < s.length(); ++i)
+        if (isdigit(s[i]))
+            push(st, s[i]);
+        else
+        {
+            b = pop(st);
+            a = pop(st);
+            push(st, operate(a, b, s[i]));
+        }
+    return pop(st);   
+}
 
 int main()
 {
@@ -125,7 +142,9 @@ int main()
     cin >> is;
     string ps;
     ps = infix_to_postfix(is);
-    cout << ps;
+    cout << ps << endl;
+    int ans = postfix(ps);
+    cout << ans << endl;
 
     return 0;
 }
