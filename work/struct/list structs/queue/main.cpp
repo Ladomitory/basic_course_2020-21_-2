@@ -25,7 +25,7 @@ class queue
             free(this->backtop);
         }
 
-        int top()
+        int first()
         {
             if (this->top)
                 return this->top->value;
@@ -33,7 +33,7 @@ class queue
                 return (int) NAN;
         }
 
-        int pop()
+        int outqueue()
         {
             if (this->top)
             {
@@ -49,7 +49,7 @@ class queue
                 return (int) NAN;
         }
         
-        void push(int value)
+        void inqueue(int value)
         {
             struct list *n = (struct list*) malloc(sizeof(struct list));
             n->next = NULL;
