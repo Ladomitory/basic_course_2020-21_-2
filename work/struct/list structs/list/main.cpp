@@ -8,6 +8,12 @@ struct list
     struct list *next = NULL;
 };
 
+class listclass
+{
+    private:
+        int value;
+        struct list *next = NULL;
+}
 /*
 Получить доступ к k-му элементу списка, проанализировать
 и/или изменить значения его полей.
