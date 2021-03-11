@@ -2,68 +2,72 @@
 
 using namespace std;
 
-class queue
+struct list
 {
-    private:
-        struct list
-        {
-            int value;
-            struct list *next = NULL;
-        };
-        struct list *top = NULL;
-        struct list *backtop = NULL;
-    public:
-        void makenull()
-        {
-            struct list *l;
-            while (this->top)
-            {
-                l = this->top;
-                this->top = this->top->next;
-                free(l);
-            }
-            free(this->backtop);
-        }
-
-        int first()
-        {
-            if (this->top)
-                return this->top->value;
-            else
-                return (int) NAN;
-        }
-
-        int outqueue()
-        {
-            if (this->top)
-            {
-                int a = this->top->value;
-                struct list *l = this->top;
-                if (this->top == this->backtop)
-                    this->backtop = this->backtop->next;
-                this->top = this->top->next;
-                free(l);
-                return a;
-            }
-            else
-                return (int) NAN;
-        }
-        
-        void inqueue(int value)
-        {
-            struct list *n = (struct list*) malloc(sizeof(struct list));
-            n->next = NULL;
-            n->value = value;
-            this->backtop->next = n;
-            if (!this->top)
-                this->top = this->backtop;
-        }
-
-        bool empty()
-        {
-            return (this->top == NULL);
-        }
+    int value;
+    struct list* next = NULL;
 };
+
+typedef struct Queue
+{
+    struct list* first = NULL;
+    struct list* end = NULL;
+} queue;
+
+queue* create()
+{
+    queue* n = (queue*) malloc(sizeof(queue));
+    return n;
+}
+
+void makenull(queue* q)
+{
+    while (q->first)
+    {
+        struct list* l = q->first;
+        q->first = q->first->next;
+        free(l);
+    }
+    free(q->end);
+    return;
+}
+
+void inqueue(queue* q, int value)
+{
+    struct list* n = (struct list*) malloc(sizeof(struct list));
+    n->value = value;
+    q->end->next = n;
+    return;
+}
+
+int outqueue(queue* q)
+{
+    if (q->first)
+    {
+        int a = q->first->value;
+        struct list* l = q->first;
+        q->first = q->first->next;
+        free(l);
+        return a;
+    }
+    else
+        return NAN;
+    
+}
+
+int first(queue* q)
+{
+    if (q->first)
+        return q->first->value;
+    else
+        return NAN;
+    
+}
+
+bool empty(queue* q)
+{
+    return (q->first == NULL);
+}
 
 int main()
 {

@@ -1,13 +1,12 @@
 #include <iostream>
 #include <string>
 #include <ctype.h> //isdigit
-#include <climits>
 
 using namespace std;
 
 struct list 
 { 
-    int value;
+    char value;
     struct list* next;
 };
 
@@ -32,36 +31,36 @@ Stack * create()
     return S;
 }
 
-int top(Stack *S)
+char top(Stack *S)
 {
     if (S->top)
         return S->top->value;
     else
-        return INT_MIN; 
+        return '\0'; 
 
 }
 
-int pop(Stack *S)
+char pop(Stack *S)
 {
     if (S->top)
     {
-        int a = S->top->value;
+        char a = S->top->value;
         struct list* l = S->top;
         S->top = S->top->next;
         free(l);
         return a;
     }
     else
-        return INT_MIN;
+        return '\0';
 }
 
-void push(Stack *S, int x)
+void push(Stack *S, char x)
 {
     struct list *l = (struct list*)malloc(sizeof(struct list));
     l->value = x;
     l->next = S->top;
     S->top = l;
-
+    return;
 }
 
 bool empty(Stack *S)
@@ -69,82 +68,38 @@ bool empty(Stack *S)
     return (S->top == NULL);
 }
 
-string infix_to_postfix(string s)
+string inf_to_post(string s)
 {
-    string ans;
     Stack *st = create();
-    string a;
+    string ans;
+    char a;
     for (int i = 0; i < s.length(); ++i)
+    {
         if (isdigit(s[i]))
             ans.push_back(s[i]);
         else if (s[i] == '(')
             push(st, s[i]);
         else if (s[i] == ')')   
         {
+            while (empty(st) && top(st) != '(')
             while (!empty(st) && top(st) != '(')
                 ans.push_back(pop(st));
             a = pop(st);
         }
         else
-        {
             if (s[i] == '*' || s[i] == '/')
-                while (!empty(st) && top(st) == '*' && top(st) == '/')
-                    ans.push_back(pop(st));  
+            {
+                while (empty(st) && top(st) == '*' && top(st) == '/')
+                    ans.push_back(pop(st));
+                push(st, s[i]);                
+            }
             else if (s[i] == '+' || s[i] == '-')
-                while (!empty(st) && top(st) != '=' && top(st) != '(')
+            {
+                while (empty(st) && top(st) != '=' && top(st) != '(')
                     ans.push_back(pop(st));
-            else
-                while (!empty(st) && top(st) != '(')
-                    ans.push_back(pop(st));
-            push(st, s[i]);
+                push(st, s[i]);
         }
-
-
     while (!empty(st))
         ans.push_back(pop(st));
     return ans;
-}
-
-int operate(int a, int b, char o)
-{
-    int ans;
-    if (o == '+')
-        ans = a + b;
-    else if (o = '-')
-        ans = a - b;
-    else if (o = '*')
-        ans = a * b;
-    else if (o = '/')
-        ans = a / b;
-
-    return ans;
-}
-
-int postfix(string s)
-{
-    Stack *st = create();
-    int a, b;
-    for (int i = 0; i < s.length(); ++i)
-        if (isdigit(s[i]))
-            push(st, s[i]);
-        else
-        {
-            b = pop(st);
-            a = pop(st);
-            push(st, operate(a, b, s[i]));
-        }
-    return pop(st);   
-}
-
-int main()
-{
-    string is;
-    cin >> is;
-    string ps;
-    ps = infix_to_postfix(is);
-    cout << ps << endl;
-    int ans = postfix(ps);
-    cout << ans << endl;
-
-    return 0;
 }
