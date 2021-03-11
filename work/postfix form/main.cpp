@@ -73,32 +73,58 @@ string inf_to_post(string s)
     Stack *st = create();
     string ans;
     char a;
+    bool f = false;
     for (int i = 0; i < s.length(); ++i)
-        if (isdigit(s[i]))
+        if (s[i] == '_')
+        {
+            f = true;
+        }
+        else if (isdigit(s[i]) && f == false)
             ans.push_back(s[i]);
+        else if (isdigit(s[i]) && f == true)
+        {
+            ans.push_back('_');
+            ans.push_back(s[i]);
+            f = false;
+        }
         else if (s[i] == '(')
             push(st, s[i]);
         else if (s[i] == ')')   
         {
             while (!empty(st) && top(st) != '(')
+            {
+                ans.push_back('_');
                 ans.push_back(pop(st));
+            }
             a = pop(st);
         }
         else
+        {
             if (s[i] == '*' || s[i] == '/')
             {
                 while (!empty(st) && top(st) == '*' && top(st) == '/')
+                {
+                    ans.push_back('_');
                     ans.push_back(pop(st));
-                push(st, s[i]);                
+                }
+                push(st, s[i]);         
             }
             else if (s[i] == '+' || s[i] == '-')
             {
                 while (!empty(st) && top(st) != '=' && top(st) != '(')
+                {
+                    ans.push_back('_');
                     ans.push_back(pop(st));
+                }
                 push(st, s[i]);
+            
+            }
         }
     while (!empty(st))
+    {
+        ans.push_back('_');
         ans.push_back(pop(st));
+    }
     return ans;
 }
 
