@@ -74,14 +74,12 @@ string inf_to_post(string s)
     string ans;
     char a;
     for (int i = 0; i < s.length(); ++i)
-    {
         if (isdigit(s[i]))
             ans.push_back(s[i]);
         else if (s[i] == '(')
             push(st, s[i]);
         else if (s[i] == ')')   
         {
-            while (empty(st) && top(st) != '(')
             while (!empty(st) && top(st) != '(')
                 ans.push_back(pop(st));
             a = pop(st);
@@ -89,17 +87,27 @@ string inf_to_post(string s)
         else
             if (s[i] == '*' || s[i] == '/')
             {
-                while (empty(st) && top(st) == '*' && top(st) == '/')
+                while (!empty(st) && top(st) == '*' && top(st) == '/')
                     ans.push_back(pop(st));
                 push(st, s[i]);                
             }
             else if (s[i] == '+' || s[i] == '-')
             {
-                while (empty(st) && top(st) != '=' && top(st) != '(')
+                while (!empty(st) && top(st) != '=' && top(st) != '(')
                     ans.push_back(pop(st));
                 push(st, s[i]);
         }
     while (!empty(st))
         ans.push_back(pop(st));
     return ans;
+}
+
+int main()
+{
+    string is;
+    cin >> is;
+    string ps;
+    ps = inf_to_post(is);
+    cout << ps << endl;
+    return 0;
 }
