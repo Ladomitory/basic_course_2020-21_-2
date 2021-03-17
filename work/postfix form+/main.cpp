@@ -76,7 +76,7 @@ string inf_to_post(string s)
     char a;
     bool f = false;
     for (int i = 0; i < s.length(); ++i)
-        if (s[i] == '_')
+        if (s[i] == ' ')
         {
             f = true;
         }
@@ -84,7 +84,7 @@ string inf_to_post(string s)
             ans.push_back(s[i]);
         else if (isdigit(s[i]) && f == true)
         {
-            ans.push_back('_');
+            ans.push_back(' ');
             ans.push_back(s[i]);
             f = false;
         }
@@ -94,7 +94,7 @@ string inf_to_post(string s)
         {
             while (!empty(st) && top(st) != '(')
             {
-                ans.push_back('_');
+                ans.push_back(' ');
                 ans.push_back(pop(st));
             }
             a = pop(st);
@@ -105,7 +105,7 @@ string inf_to_post(string s)
             {
                 while (!empty(st) && top(st) == '*' && top(st) == '/')
                 {
-                    ans.push_back('_');
+                    ans.push_back(' ');
                     ans.push_back(pop(st));
                 }
                 push(st, s[i]);         
@@ -114,7 +114,7 @@ string inf_to_post(string s)
             {
                 while (!empty(st) && top(st) != '=' && top(st) != '(')
                 {
-                    ans.push_back('_');
+                    ans.push_back(' ');
                     ans.push_back(pop(st));
                 }
                 push(st, s[i]);
@@ -123,7 +123,7 @@ string inf_to_post(string s)
         }
     while (!empty(st))
     {
-        ans.push_back('_');
+        ans.push_back(' ');
         ans.push_back(pop(st));
     }
     return ans;
@@ -132,7 +132,7 @@ string inf_to_post(string s)
 int main()
 {
     string is;
-    cin >> is;
+    getline(cin, is);
     string ps;
     ps = inf_to_post(is);
     cout << ps << endl;
