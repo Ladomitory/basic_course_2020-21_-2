@@ -17,6 +17,7 @@ void makenull(Stack *S)
     struct list* l;
     while (S->top)
     {
+        
         l = S->top;
         S->top = l->next;
         free(l);
