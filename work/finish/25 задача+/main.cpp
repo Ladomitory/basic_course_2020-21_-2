@@ -25,7 +25,7 @@ pair<int, int> dcheck(int n)
 int main() 
 {
   pair<int, int> ans;
-  for(int i = 174457; i <= 174505; ++i)
+  for(int i = 5; i <= 9; ++i)
   {
     ans = dcheck(i);
     if(ans.second != -1) cout << ans.first << " " << ans.second << endl;
