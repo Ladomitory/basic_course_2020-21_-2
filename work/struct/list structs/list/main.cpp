@@ -118,7 +118,7 @@ struct list * merge(struct list *l1, struct list *l2) //слияние спри�
     {
         if (l1->value >= l2->value)
         {
-
+            
         }
     }
 }
