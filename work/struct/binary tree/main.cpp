@@ -14,4 +14,4 @@ class tree
         struct node *root;
     public:
         void a();
-}
+};
