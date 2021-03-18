@@ -101,24 +101,41 @@ int key(struct list* l, double value) //Найти в списке узел с �
     } while (l->next);
     return ans;
 }
-/*
-Объединить два или более линейных списков в один.
 
+struct list * merge(struct list *l1, struct list *l2) //слияние сприсков l1 и l2
+{
+    struct list *nl; //new list
+    while (l1 != NULL || l2 != NULL)
+    {
+        if (l1->value >= l2->value)
+        {
+            nl->next = l2;
+            l2 = l2->next;
+            nl = nl->next;
+        }
+        else 
+        {
+            nl->next = l1;
+            l1 = l1->next;
+            nl = nl->next;
+        }
+
+        if (l1 == NULL)
+        {
+            nl->next = l2;
+        }
+        else
+        {
+            nl->next = l1;
+        }
+        
+    }
+}
+
+/*
 Разбить линейный список на два или более линейных
 списков.
 
 Выполнить сортировку в возрастающем порядке по
 некоторым значениям полей в узлах.
 */
-
-struct list * merge(struct list *l1, struct list *l2) //слияние сприсков l1 и l2
-{
-    struct list *al; //ans list
-    while (l1->next != NULL || l2->next != NULL)
-    {
-        if (l1->value >= l2->value)
-        {
-            
-        }
-    }
-}
