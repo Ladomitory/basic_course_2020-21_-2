@@ -5,7 +5,7 @@ using namespace std;
 
 typedef struct node
 {
-    string data = "\0";
+    string data;
     struct node* left = NULL;
     struct node* right = NULL;
 } tree;
@@ -20,9 +20,13 @@ tree* push(tree* root, string data)
         root->right = NULL;
     }
     else if (data < root->data)
+    {
         root = push(root->left, data);
-    else
+    }
+    else if (data > root->data)
+    {
         root = push(root->right, data);
+    }
     return root;
 }
 
@@ -49,22 +53,20 @@ void free_tree(tree* root)
 int main()
 {
     tree* root = NULL;
-    string str;
-    while (true)
+    string a;
+    while (a != "0995")
     {
         cout << "New elment:";
-        cin >> str;
-        if (str == "0995")
+        cin >> a;
+        if (a == "0995")
             break;
-        root = push(root, str);
-        cout << "testinput" << endl;
-        print_infix(root);
+        root = push(root, a);
     }
     cout << "infix" << endl;
     print_infix(root);
 
-    cout << "Free Data" << endl;
-    free_tree(root);
+    cout << "Free Data"<< endl;
+    free_tree(root); 
     cout << "End Work" << endl;
     return 0;
 }
