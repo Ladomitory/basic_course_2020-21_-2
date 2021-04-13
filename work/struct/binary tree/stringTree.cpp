@@ -10,14 +10,9 @@ typedef struct node
     struct node* right = NULL;
 } tree;
 
-bool empty(tree* root)
-{
-    return (root == NULL);
-}
-
 tree* push(tree* root, string data)
 {
-    if (empty(root))
+    if (!root)
     {
         root = (tree*) malloc(sizeof(tree));
         root->data = data;
@@ -33,7 +28,7 @@ tree* push(tree* root, string data)
 
 void print_infix(tree* root)
 {
-    if (empty(root))
+    if (!root)
         return;
     print_infix(root->left);
     cout << root->data << endl;
@@ -43,7 +38,7 @@ void print_infix(tree* root)
 
 void free_tree(tree* root)
 {
-    if (empty(root))
+    if (!root)
         return;
     free_tree(root->left);
     free_tree(root->right);
@@ -53,19 +48,21 @@ void free_tree(tree* root)
 
 int main()
 {
-    
     tree* root = NULL;
     string str;
     while (true)
     {
-        cout << "new:";
+        cout << "New elment:";
         cin >> str;
-        if (str == "404")
+        if (str == "0995")
             break;
-        push(root, str);
+        root = push(root, str);
+        cout << "testinput" << endl;
+        print_infix(root);
     }
     cout << "infix" << endl;
     print_infix(root);
+
     cout << "Free Data" << endl;
     free_tree(root);
     cout << "End Work" << endl;
