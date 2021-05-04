@@ -22,7 +22,11 @@ bool trust(int i, vector <vector <int>> countryTop, vector <vector <int>> autoTo
         ans = true;
     return ans;
 }
-
+/*
+1 1
+0
+1
+*/
 int main()
 {
     int N, M; cin >> N >> M;

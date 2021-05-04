@@ -1,15 +1,22 @@
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <iterator>
 
 using namespace std;
 
-unsigned int Complexity();
+void Complexity(int N, int M, vector <vector <bool>> matric)
+{
+    vector <unsigned int> complexity(N, -1);
+    queue <unsigned int> q;
+    
+}
 
 int main()
 {
-    unsigned int N, M; 
+    unsigned int N, M;
     cin >> N >> M;
-    vector <vector <unsigned int>> association(N);
+    vector <vector <bool>> matric(N, vector <bool> (N, false));
     unsigned int k_i, theme_j;
     for (unsigned int i = 0; i < N; ++i)
     {
@@ -17,10 +24,8 @@ int main()
         for (unsigned int j = 0; j < k_i; ++j)
         {
             cin >> theme_j;
-            association[i].push_back(theme_j);
+            matric[i][theme_j - 1] = true;
         }
     }
-    vector <unsigned int> complexity(N, 0);
-
     return 0;
 }
